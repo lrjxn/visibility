@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+<head>
+    <script src="http://code.jquery.com/jquery-latest.js">
+    </script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js">
+    </script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+ 
+    <style media="screen">
+        .container {
+            height: 500px;
+            width: 700px;
+            margin: 50px auto;
+            overflow: hidden;
+            position: relative;
+        }
+ 
+        .container .slides {
+            height: calc(20% - 5px);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+        }
+ 
+        .container .slides>img {
+            height: 100%;
+            width: calc(20% - 5px);
+            cursor: pointer;
+        }
+ 
+        .big-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: calc(80% - 10px);
+            width: calc(100% - 5px);
+            border: 4px;
+        }
+ 
+        .big-screen>img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+ 
+        .container-big-object {
+            height: 130px;
+            width: 130px;
+            position: absolute;
+            top: 0;
+			left: 0;
+        }
+ 
+        .big-object {
+            width: 100%;
+            height: 100%;
+			object-fit: cover;
+        }
+		.hidden {
+			visibility: hidden;
+		}
+    </style>
+ 
+    <script language="JavaScript">
+        $(document).ready(function () {
+            $('.container .slides .background').click(function () {
+                var $smallimages = $(this).attr('src');
+                var $bigimage = $('.big-screen > img');
+                var $bigimages = $bigimage.attr('src');
+                if ($smallimages != $bigimages) {
+                    $bigimage.hide(
+                        "explode", 1500, function () {
+                            $bigimage.attr('src', $smallimages);
+                            $bigimage.show();
+                        });
+                }
+            });
+            $('.container .slides .object').click(function () {
+                $('.container-big-object').removeClass('hidden');
+				var $smallobject = $(this).attr('src');
+				var $bigobject = $('.big-object');
+				var $bigobjects = $bigobject.attr('src');
+                if ($smallobject != $bigobjects) {
+                    $bigobject.hide(
+                        "slide", 1500, function () {
+                            $bigobject.attr('src', $smallobject);
+                            $bigobject.show();
+                        });
+                }
+            });
+        });
+ 
+    </script>
+</head>
+ 
+<body>
+    <div class="container">
+        <div class="big-screen">
+            <img src="cat.jpeg">
+        </div>
+		<div class="container-big-object hidden">
+			<img class="big-object" src="cat.toy.png">
+		</div>
+        <div class="slides">
+            <img class="background" src="cat.jpeg">
+            <img class="background" src="dog.jpeg">
+            <img class="object" src="cat.toy.png">
+            <img class="object" src="dog.toy.png">
+        </div>
+    </div>
+ 
+</body>
+ 
+</html>
